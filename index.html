@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object</title>
+</head>
+<body>
+    <script>
+        let shapes = [];
+        class Rectangle {
+            constructor(element,height, width, color, id) {
+                this.element = element;
+                this.height = height;
+                this.width = width;
+                this.color = color;
+                this.id = id;
+            }
+            // Method
+            createShape() {
+                let shape = document.createElement(this.element);
+                shape.style.width = this.width + 'px';
+                shape.style.height = this.height + 'px';
+                shape.style.backgroundColor = '#' + this.color;
+                shape.dataset.id = this.id;
+                document.body.append(shape);
+            }
+            deleteShape() {
+                
+            }
+        }
+        //let rectangle = new Rectangle('div', 200, 200, '333', Date.now());
+
+        for(i = 0; i < 10; i++){
+            let rectangle = new Rectangle('div', 200, 200, '333', i);
+            shapes.push(rectangle);
+        }
+        console.log(shapes);
+        localStorage.setItem('shapes', JSON.stringify(shapes));
+        let storageShapes = JSON.parse(localStorage.getItem('shapes'));
+        console.log(storageShapes);
+        shapes = [];
+        storageShapes.forEach(element => {
+            let rectangle = new Rectangle(element.element, element.width, element.height, element.color, element.id);
+            rectangle.createShape();
+            shapes.push(rectangle);
+        });
+        console.log(shapes);
+        
+        
+
+        
+    </script>
+</body>
+</html>
